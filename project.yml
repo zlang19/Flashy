@@ -1,0 +1,40 @@
+# XcodeGen spec. Run `xcodegen` in this folder to produce Flashy.xcodeproj (see README.md).
+name: Flashy
+options:
+  bundleIdPrefix: com.zlang19
+  deploymentTarget:
+    iOS: "17.0"
+  createIntermediateGroups: true
+packages:
+  FlashyCore:
+    path: FlashyCore
+targets:
+  Flashy:
+    type: application
+    platform: iOS
+    sources:
+      - Flashy
+    dependencies:
+      - package: FlashyCore
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.zlang19.flashy
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        SWIFT_VERSION: "5.0"
+        TARGETED_DEVICE_FAMILY: "1"
+        CODE_SIGN_STYLE: Automatic
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_CFBundleDisplayName: Flashy
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIUserInterfaceStyle: Dark
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone: UIInterfaceOrientationPortrait
+schemes:
+  Flashy:
+    build:
+      targets:
+        Flashy: all
+    test:
+      targets:
+        - package: FlashyCore/FlashyCoreTests

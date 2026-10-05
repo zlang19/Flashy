@@ -1,0 +1,62 @@
+# Flashy
+
+A personal spaced-repetition flashcard app for iPhone. Cards are markdown files in
+[`flashcards/`](flashcards/) in this repo; the app pulls them from GitHub when it opens.
+See [Plan.md](Plan.md) for the full design.
+
+## Building and running
+
+The Xcode project isn't checked in. It's generated from [`project.yml`](project.yml)
+with [XcodeGen](https://github.com/yonaskolb/XcodeGen), so the repo only holds a
+readable spec instead of a `project.pbxproj`.
+
+### 1. Install XcodeGen (once, on your Mac)
+
+```sh
+brew install xcodegen
+```
+
+No Homebrew? Use `mint install yonaskolb/XcodeGen`, or download a release from
+<https://github.com/yonaskolb/XcodeGen/releases>.
+
+### 2. Generate the project
+
+From the repo root:
+
+```sh
+xcodegen
+```
+
+This writes `Flashy.xcodeproj` (git-ignored). **Run it again whenever you add,
+remove or rename source files**, or after pulling changes that do. Edits inside
+existing files don't need a regenerate.
+
+### 3. Run on your iPhone
+
+1. `open Flashy.xcodeproj`
+2. Select the **Flashy** target → **Signing & Capabilities** → choose your Team
+   (your Apple ID; add it under Xcode → Settings → Accounts if needed).
+   If the bundle ID `com.zlang19.flashy` is taken, change it there.
+3. Plug in the iPhone, select it as the run destination, and press ⌘R.
+4. First run only: on the phone, go to Settings → General → VPN & Device
+   Management and trust your developer certificate.
+
+With a free Apple ID the install expires after **7 days**. Re-run from Xcode
+to renew it. Your review history survives a re-run, but **deleting the app erases it**.
+
+## Tests
+
+The scheduling, parsing, sync-planning and stats logic lives in the
+[`FlashyCore`](FlashyCore/) Swift package, which has no iOS dependencies:
+
+```sh
+cd FlashyCore && swift test
+```
+
+This works on macOS or Linux. In Xcode, ⌘U on the Flashy scheme runs the same tests.
+
+## Adding cards
+
+Copy [`templates/card/`](templates/card/) into `flashcards/<category>/<card-name>/`,
+edit `flashcard.md`, commit and push. The format is documented in
+[flashcards/README.md](flashcards/README.md).
