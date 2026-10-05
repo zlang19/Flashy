@@ -15,3 +15,4 @@ FlashyCore/Package.resolved
 .swift-version
 
 .DS_Store
+tools/constellations/.cache/
